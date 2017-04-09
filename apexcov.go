@@ -24,17 +24,17 @@ func main() {
 		cli.StringFlag{
 			Name:  "instance,i",
 			Value: "https://login.salesforce.com",
-			Usage: "Salesforce instance to use",
+			Usage: "instance to use",
 		},
 		cli.StringFlag{
 			Name:  "username,u",
 			Value: os.Getenv("APEXCOV_USERNAME"),
-			Usage: "Username of the Salesforge org",
+			Usage: "username of the Salesforge org",
 		},
 		cli.StringFlag{
 			Name:  "password,p",
 			Value: os.Getenv("APEXCOV_PASSWORD"),
-			Usage: "Password of the Salesforge org",
+			Usage: "password of the Salesforge org",
 		},
 	}
 

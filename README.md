@@ -17,15 +17,47 @@ To generate your `lcov.info` coverage file:
 $ apexcov --username="jpmonette@example.com" --password="my-password"
 ```
 
-### Coveralls
+You can simplify the command by defining the global options as environment variables:
 
-If you are using [Travis CI](https://travis-ci.org), add this to your `.travis.yml`:
+- `APEXCOV_INSTANCE`: Salesforce instance URL
+- `APEXCOV_USERNAME`: Account username
+- `APEXCOV_PASSWORD`: Account password
 
-```yaml
-after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+Then, you can generate your `lcov.info` by simply running the binary:
+
+```sh
+$ apexcov
 ```
 
-Make sure you have the [npm](https://www.npmjs.com/) coveralls package - `npm install coveralls`.
+### Coveralls
+
+#### Travis CI
+
+Add this to your `.travis.yml`:
+
+```yaml
+before_install:
+- npm install -g coveralls
+- go get -u github.com/jpmonette/apexcov
+after_script:
+- apexcov
+- "cat ./coverage/lcov.info | coveralls"
+```
+
+#### CircleCI
+
+Add this to your `circle.yml`:
+
+```yaml
+machine:
+  pre:
+    - npm install -g coveralls
+    - go get -u github.com/jpmonette/apexcov
+test:
+  post:
+    - apexcov
+    - cat ./coverage/lcov.info | coveralls
+```
 
 ## Help
 
