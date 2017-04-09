@@ -22,17 +22,17 @@ func main() {
 
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
-			Name:  "instance",
+			Name:  "instance,i",
 			Value: "https://login.salesforce.com",
 			Usage: "Salesforce instance to use",
 		},
 		cli.StringFlag{
-			Name:  "username",
+			Name:  "username,u",
 			Value: os.Getenv("APEXCOV_USERNAME"),
 			Usage: "Username of the Salesforge org",
 		},
 		cli.StringFlag{
-			Name:  "password",
+			Name:  "password,p",
 			Value: os.Getenv("APEXCOV_PASSWORD"),
 			Usage: "Password of the Salesforge org",
 		},
