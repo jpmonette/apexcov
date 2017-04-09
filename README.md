@@ -1,5 +1,5 @@
 # apexcov
-A `lcov.info` Test Coverage generator for the [Apex](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm) programming language
+Maintaining a well-tested codebase is mission-critical. `apexcov` generates public [Apex](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm) test coverage reports for your [Force.com](https://force.com) open-source projects.
 
   [![CircleCI Build Status](https://circleci.com/gh/jpmonette/apexcov.png?style=shield&circle-token=:circle-token)](https://circleci.com/gh/jpmonette/apexcov)
 
@@ -11,23 +11,17 @@ $ go get -u github.com/jpmonette/apexcov
 
 ## Usage
 
-To generate your `lcov.info` coverage file:
+To generate your test coverage report:
 
 ```sh
 $ apexcov --username="jpmonette@example.com" --password="my-password"
 ```
 
-You can simplify the command by defining the global options as environment variables:
+You can shorten the command by setting the global options as environment variables:
 
 - `APEXCOV_INSTANCE`: Salesforce instance URL
 - `APEXCOV_USERNAME`: Account username
 - `APEXCOV_PASSWORD`: Account password
-
-Then, you can generate your `lcov.info` by simply running the binary:
-
-```sh
-$ apexcov
-```
 
 ### Coveralls
 
