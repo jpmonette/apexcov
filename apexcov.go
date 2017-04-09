@@ -48,6 +48,10 @@ func apexcov(c *cli.Context) error {
 	password := c.String("password")
 	instance := c.String("instance")
 
+	if os.Getenv("APEXCOV_INSTANCE") != "" {
+		instance = os.Getenv("APEXCOV_INSTANCE")
+	}
+
 	if username == "" {
 		return cli.NewExitError("You must provide a username", 1)
 	} else if password == "" {
