@@ -12,6 +12,7 @@ import (
 	"github.com/urfave/cli"
 )
 
+// main is the entry point for the apexcov CLI application
 func main() {
 	app := cli.NewApp()
 	app.Usage = "a Test Coverage Generator for Apex"
@@ -41,6 +42,7 @@ func main() {
 	app.Run(os.Args)
 }
 
+// apexcov handles the code coverage command
 func apexcov(c *cli.Context) error {
 	username := c.String("username")
 	password := c.String("password")
@@ -91,6 +93,7 @@ func apexcov(c *cli.Context) error {
 	return nil
 }
 
+// getCoverage gets the Apex code coverage from the Salesforce instance
 func getCoverage(instanceUrl, session string) (coverage CoverageResponse, err error) {
 	client := &http.Client{}
 
@@ -123,6 +126,7 @@ func getCoverage(instanceUrl, session string) (coverage CoverageResponse, err er
 	return
 }
 
+// persistCoverage stores the coverage in the lcov.info file
 func persistCoverage(body string) error {
 	_, err := os.Stat("./coverage")
 	if os.IsNotExist(err) {
@@ -133,6 +137,7 @@ func persistCoverage(body string) error {
 	return err
 }
 
+// CoverageResponse represents the format of the ApexCodeCoverageAggregate query response
 type CoverageResponse struct {
 	Records []struct {
 		Id                 string `json:"ApexClassOrTriggerId"`
