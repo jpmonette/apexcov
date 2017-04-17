@@ -38,6 +38,8 @@ after_script:
 - "cat ./coverage/lcov.info | coveralls"
 ```
 
+(make sure you set your `COVERALLS_REPO_TOKEN` environment variable)
+
 #### CircleCI
 
 Add this to your `circle.yml`:
@@ -52,6 +54,25 @@ test:
     - apexcov
     - cat ./coverage/lcov.info | coveralls
 ```
+
+### Code Climate
+
+#### CircleCI
+
+Add this to your `circle.yml`:
+
+```yaml
+machine:
+  pre:
+    - npm install -g codeclimate-test-reporter
+    - go get -u github.com/jpmonette/apexcov
+test:
+  post:
+    - apexcov
+    - codeclimate-test-reporter ./coverage/lcov.info
+```
+
+(make sure you set your `CODECLIMATE_REPO_TOKEN` environment variable)
 
 ## Help
 
