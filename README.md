@@ -30,12 +30,14 @@ You can shorten the command by setting the global options as environment variabl
 Add this to your `.travis.yml`:
 
 ```yaml
-before_install:
+env:
+- GOPATH=$HOME/go PATH=$GOPATH/bin:$PATH
+before_script:
 - npm install -g coveralls
-- go get -u github.com/jpmonette/apexcov
-after_script:
+- go get github.com/jpmonette/apexcov
+script:
 - apexcov
-- "cat ./coverage/lcov.info | coveralls"
+- codeclimate-test-reporter < ./coverage/lcov.info
 ```
 
 (make sure you set your `COVERALLS_REPO_TOKEN` environment variable)
@@ -57,6 +59,23 @@ test:
 
 ### Code Climate
 
+#### Travis CI
+
+Add this to your `.travis.yml`:
+
+```yaml
+env:
+- GOPATH=$HOME/go PATH=$GOPATH/bin:$PATH
+before_script:
+- npm install -g codeclimate-test-reporter
+- go get github.com/jpmonette/apexcov
+script:
+- apexcov
+- codeclimate-test-reporter < ./coverage/lcov.info
+```
+
+(make sure you set your `CODECLIMATE_REPO_TOKEN` environment variable)
+
 #### CircleCI
 
 Add this to your `circle.yml`:
@@ -69,7 +88,7 @@ machine:
 test:
   post:
     - apexcov
-    - codeclimate-test-reporter ./coverage/lcov.info
+    - codeclimate-test-reporter < ./coverage/lcov.info
 ```
 
 (make sure you set your `CODECLIMATE_REPO_TOKEN` environment variable)
