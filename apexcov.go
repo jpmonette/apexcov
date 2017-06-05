@@ -74,11 +74,13 @@ func apexcov(c *cli.Context) error {
 
 	body := "TN:\n"
 
+	dir, err := os.Getwd()
+
 	for _, class := range data.Records {
 		if strings.HasPrefix(class.Id, "01p") {
-			body += "SF:./src/classes/" + class.ApexClassOrTrigger.Name + ".cls\n"
+			body += "SF:" + dir + "/src/classes/" + class.ApexClassOrTrigger.Name + ".cls\n"
 		} else {
-			body += "SF:./src/triggers/" + class.ApexClassOrTrigger.Name + ".cls\n"
+			body += "SF:" + dir + "/src/triggers/" + class.ApexClassOrTrigger.Name + ".cls\n"
 
 		}
 
