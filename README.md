@@ -66,32 +66,53 @@ Add this to your `.travis.yml`:
 ```yaml
 env:
 - GOPATH=$HOME/go PATH=$GOPATH/bin:$PATH
+- CC_TEST_REPORTER_ID=YOUR_CODE_CLIMATE_REPORTER_ID
 before_script:
-- npm install -g codeclimate-test-reporter
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
 - go get github.com/jpmonette/apexcov
+- ./cc-test-reporter before-build
 script:
 - apexcov
-- codeclimate-test-reporter < ./coverage/lcov.info
+- ./cc-test-reporter format-coverage -t lcov ./coverage/lcov.info
+- ./cc-test-reporter upload-coverage
 ```
 
-(make sure you set your `CODECLIMATE_REPO_TOKEN` environment variable)
-
-#### CircleCI
+#### CircleCI 1.0
 
 Add this to your `circle.yml`:
 
 ```yaml
 machine:
   pre:
-    - npm install -g codeclimate-test-reporter
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
     - go get -u github.com/jpmonette/apexcov
 test:
   post:
     - apexcov
-    - codeclimate-test-reporter < ./coverage/lcov.info
+    - ./cc-test-reporter format-coverage -t lcov ./coverage/lcov.info
+    - ./cc-test-reporter upload-coverage
 ```
 
-(make sure you set your `CODECLIMATE_REPO_TOKEN` environment variable)
+(make sure you set your `CC_TEST_REPORTER_ID` environment variable)
+
+#### CircleCI 2.0
+
+Add this to your `.circleci/config.yml`:
+
+```yaml
+  build:
+    environment:
+      CC_TEST_REPORTER_ID: YOUR_CODE_CLIMATE_REPORTER_ID
+    steps:
+      - go get -u github.com/jpmonette/apexcov
+      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      - run: chmod +x ./cc-test-reporter
+      - apexcov
+      - ./cc-test-reporter format-coverage -t lcov ./coverage/lcov.info
+      - ./cc-test-reporter upload-coverage
+```
 
 ## Help
 
